@@ -1,0 +1,7 @@
+
+Build Docker image:
+docker build -t face_cropper -f Dockerfile .
+
+docker rm face_cropper
+
+docker container run --name face_cropper face_cropper
