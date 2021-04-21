@@ -15,7 +15,7 @@ dog_face_cropper_service = DogFaceCropperService()
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Dog face cropper', ims={})
+    return "Index Page"
 
 @app.route('/dogfacecropper', methods=['POST'])
 def dogfacecropper():
