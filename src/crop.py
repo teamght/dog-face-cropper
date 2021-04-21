@@ -1,5 +1,5 @@
 import numpy as np
-from utils import get_detection_and_shape
+from .utils import get_detection_and_shape
 
 def sum_v(v1, v2):
   return v1[0] + v2[0], v1[1] + v2[1]

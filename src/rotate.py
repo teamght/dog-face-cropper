@@ -1,4 +1,4 @@
-from utils import get_detection_and_shape
+from .utils import get_detection_and_shape
 import math
 import imutils
 

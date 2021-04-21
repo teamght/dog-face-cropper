@@ -5,6 +5,7 @@ import shutil
 import cv2
 import matplotlib.pyplot as plt
 from imutils import face_utils
+import os
 
 def download_image(img_url):
   tmp_path, _ = urllib.request.urlretrieve(img_url)
@@ -29,3 +30,11 @@ def get_detection_and_shape(detector, predictor, img):
   shape = predictor(img, d.rect)
   shape = face_utils.shape_to_np(shape)
   return d, [tuple(x) for x in shape]
+
+def eliminar_archivos_temporales(filename):
+  try:
+    print('Eliminar el archivo temporal {}'.format(filename))
+    os.remove(filename)
+  except AssertionError as error:
+    print(error)
+    print('Error al eliminar el archivo temporal {}'.format(filename))

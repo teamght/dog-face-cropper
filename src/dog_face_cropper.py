@@ -3,10 +3,10 @@ import cv2
 import os
 import imutils
 
-from utils import download_image, show_with_points
-from rotate import DogFaceRotate
-from crop import DogFaceCrop
-from resize import DogFaceResize
+from .utils import download_image, show_with_points
+from .rotate import DogFaceRotate
+from .crop import DogFaceCrop
+from .resize import DogFaceResize
 
 class DogFaceCropper():
 
@@ -47,15 +47,15 @@ class DogFaceCropper():
     adjused_cropping_points = tuple([round(p/tracking['ratio']) for p in tracking['cropping_points']])
     return self.cropper.crop_with_padding(img, *adjused_cropping_points)
 
-  def process_file(self, img_url, save_as_path = None):
-  
-    img_path = download_image(img_url)
+  def process_file(self, img_path, save_as_path = None):
+    try:
+      img = cv2.imread(img_path)
+      img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+      
+      img_processed = self.process_image(img)
 
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    
-    img_processed = self.process_image(img)
-
-    if save_as_path is not None:
-      img_out = cv2.cvtColor(img_processed, cv2.COLOR_RGB2BGR)
-      cv2.imwrite(save_as_path, img_out)
+      if save_as_path is not None:
+        img_out = cv2.cvtColor(img_processed, cv2.COLOR_RGB2BGR)
+        cv2.imwrite(save_as_path, img_out)
+    except Exception as e:
+      print(e)

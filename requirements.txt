@@ -1,6 +1,11 @@
+#
+# mascotas-face-cropper-app
+#
 opencv-python
 matplotlib
 imutils
 cmake
 wheel
 dlib
+Flask
+Flask-Cors
