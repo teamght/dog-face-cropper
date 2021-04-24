@@ -25,7 +25,7 @@ def show_with_points(img, points, figsize=(16, 16)):
 
 def get_detection_and_shape(detector, predictor, img):
   dets = detector(img, upsample_num_times=1)
-  assert len(dets) == 1, "Ver qué hago en estos casos... (quedarme con la mas grande? la que tiene mayor confidence?)"
+  assert len(dets) == 1, f"Se necesitaba 1 cara, se encontraron {len(dets)}" # Ver qué hago en estos casos... (quedarme con la mas grande? la que tiene mayor confidence?)
   d = dets[0]
   shape = predictor(img, d.rect)
   shape = face_utils.shape_to_np(shape)
