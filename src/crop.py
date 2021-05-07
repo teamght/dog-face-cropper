@@ -50,6 +50,6 @@ class DogFaceCrop():
     if False: # show cropping
       img_result = img.copy()
       cv2.rectangle(img_result, pt1=(x0, y0), pt2=(x1, y1), thickness=2, color=(255,0,0), lineType=cv2.LINE_AA)
-      show_with_points(img_result, [])
+      #show_with_points(img_result, [])
     cropping_points = x0, y0, x1, y1
     return self.crop_with_padding(img, *cropping_points), cropping_points
