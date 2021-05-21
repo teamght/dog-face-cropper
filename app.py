@@ -29,7 +29,7 @@ def dogfacecropper():
             return jsonify('Got None')
         else:
             print("DATA",type(data))
-            print(data)
+            
             if data.filename == '':
                 return jsonify('Debe ingresar una imagen.')
 
