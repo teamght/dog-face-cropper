@@ -11,13 +11,14 @@ from .resize import DogFaceResize
 class DogFaceCropper():
 
   def __init__(self, detectors_path):
-  
+    print('Instanciando de DogFaceCropper ...')
     detector = dlib.cnn_face_detection_model_v1(os.path.join(detectors_path, 'dogHeadDetector.dat'))
     predictor = dlib.shape_predictor(os.path.join(detectors_path, 'landmarkDetector.dat'))
     
     self.rotator = DogFaceRotate(detector, predictor)
     self.cropper = DogFaceCrop(detector, predictor)
     self.resizer = DogFaceResize()
+    print('Se logró instanciar DogFaceCropper')
 
   def process_image(self, img):
     print('Iniciando procesamiento de imagen para ser recortada ... ({})'.format(datetime.now()))

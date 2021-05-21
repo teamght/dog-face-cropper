@@ -28,25 +28,25 @@ def dogfacecropper():
         if data == None:
             return jsonify('Got None')
         else:
+            print("DATA",type(data))
+            print(data)
+            if data.filename == '':
+                return jsonify('Debe ingresar una imagen.')
+
             if not os.path.exists('./temp_crop/'):
                 os.mkdir('./temp_crop/')
             
             current_date = datetime.utcnow().strftime('%Y-%m-%d_%H%M%S.%f')[:-3]
             nombre_imagen_a_recortar = './temp_crop/image_{}.jpg'.format(current_date)
             nombre_imagen_recortada = './temp_crop/new_image_{}.jpg'.format(current_date)
-            
             file = data
             file.save(nombre_imagen_a_recortar)
-            
             dog_face_cropper_service.recortar_imagen_mascota(nombre_imagen_a_recortar, nombre_imagen_recortada)
-            
             data = {}
             with open(nombre_imagen_recortada,'rb') as file:
                 img = file.read()
             data['img'] = base64.encodebytes(img).decode('utf-8')
-
             respuesta = json.dumps(data)
-
             eliminar_archivos_temporales(nombre_imagen_a_recortar)
             eliminar_archivos_temporales(nombre_imagen_recortada)
     except Exception as e:
