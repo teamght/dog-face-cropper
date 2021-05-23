@@ -22,25 +22,24 @@ def dogfacecropper():
     fecha_busqueda = datetime.now()
     print('Inicio de recorte de imagen de mascota: {}'.format(fecha_busqueda))
     try:
-        print(request.files)
-        data = request.files.get('upload_file')
+        data = request.json
+        data = data['upload_file']
         
         if data == None:
             return jsonify('Got None')
         else:
             print("DATA",type(data))
             
-            if data.filename == '':
-                return jsonify('Debe ingresar una imagen.')
-
             if not os.path.exists('./temp_crop/'):
                 os.mkdir('./temp_crop/')
             
             current_date = datetime.utcnow().strftime('%Y-%m-%d_%H%M%S.%f')[:-3]
             nombre_imagen_a_recortar = './temp_crop/image_{}.jpg'.format(current_date)
             nombre_imagen_recortada = './temp_crop/new_image_{}.jpg'.format(current_date)
-            file = data
-            file.save(nombre_imagen_a_recortar)
+            
+            with open(nombre_imagen_a_recortar, 'wb') as f:
+                f.write(base64.b64decode(data))
+
             dog_face_cropper_service.recortar_imagen_mascota(nombre_imagen_a_recortar, nombre_imagen_recortada)
             data = {}
             with open(nombre_imagen_recortada,'rb') as file:
