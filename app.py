@@ -23,7 +23,7 @@ def dogfacecropper():
     print('Inicio de recorte de imagen de mascota: {}'.format(fecha_busqueda))
     try:
         data = request.json
-        data = data['upload_file']
+        data = data['imagen_bytes']
         
         if data == None:
             return jsonify('Got None')
